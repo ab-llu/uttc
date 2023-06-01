@@ -2,7 +2,8 @@
   "version": 2,
   "builds": [
     {
-      "src": "hackathon/react/src/App.tsx"
+      "src": "hackathon/react/src/App.tsx",
+      "use": "@vercel/node@1.10.0"
     }
   ]
 }
