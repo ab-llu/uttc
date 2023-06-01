@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "hackathon/react/src/App.tsx", // ビルドに使用するディレクトリまたはファイルのパス
+      "src": "hackathon/react/src/App.tsx"
     }
   ]
 }
