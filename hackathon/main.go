@@ -36,9 +36,19 @@ func init() {
 func messageHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
-		controller.MessageDisplay(w, db)
+		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Access-Control-Request-Methods, Access-Control-Request-Headers")
+		w.Header().Set("Access-Control-Max-Age", "86400")
+		controller.MessageDisplay(w, r, db)
 
 	case http.MethodPost:
+		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Access-Control-Request-Methods, Access-Control-Request-Headers")
+		w.Header().Set("Access-Control-Max-Age", "86400")
 		controller.MessagePost(w, r, db)
 
 	case http.MethodOptions:

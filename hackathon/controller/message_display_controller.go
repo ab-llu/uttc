@@ -7,7 +7,6 @@ import (
 	"net/http"
 )
 
-func MessageDisplay(w http.ResponseWriter, db *sql.DB) {
-
-	usecase.MessageDisplay(w, db)
+func MessageDisplay(w http.ResponseWriter, r *http.Request, db *sql.DB) {
+	usecase.MessageDisplay(w, r, db)
 }

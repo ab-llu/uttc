@@ -6,13 +6,21 @@ type MessageId struct {
 	Id string `json:"id"`
 }
 
-type MessageResForHTTPGet struct {
-	MessageId string `json:"messageId"`
-	PostedAt  string `json:"posted_at"`
-	User      string `json:"user"`
-	Content   string `json:"message"`
-	Edit      bool   `json:"edit"`
-	Channel   string `json:"channel"`
+type MessageResForDisplay struct {
+	MessageId string    `json:"messageId"`
+	PostedAt  time.Time `json:"posted_at"`
+	User      string    `json:"user"`
+	Content   string    `json:"message"`
+	Edit      bool      `json:"edit"`
+}
+
+type MessageResForHTTPGET struct {
+	MessageId string    `json:"messageId"`
+	UserId    string    `json:"userId"`
+	ChannelId string    `json:"channelId"`
+	PostedAt  time.Time `json:"posted_at"`
+	Content   string    `json:"message"`
+	Edit      bool      `json:"edit"`
 }
 
 type MessageResForHTTPPOST struct {
