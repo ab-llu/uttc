@@ -12,6 +12,7 @@ type MessageResForHTTPGet struct {
 	User      string    `json:"user"`
 	Content   string    `json:"message"`
 	Edit      bool      `json:"edit"`
+	Channel   string    `json:"channel"`
 }
 
 type MessageResForHTTPPOST struct {

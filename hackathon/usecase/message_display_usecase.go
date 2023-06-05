@@ -15,7 +15,7 @@ func MessageDisplay(w http.ResponseWriter, db *sql.DB) {
 	users := make([]model.MessageResForHTTPGet, 0)
 	for rows.Next() {
 		var u model.MessageResForHTTPGet
-		if err := rows.Scan(&u.MessageId, &u.PostedAt, &u.User, &u.Content, &u.Edit); err != nil {
+		if err := rows.Scan(&u.MessageId, &u.User, &u.Channel, &u.PostedAt, &u.Content, &u.Edit); err != nil {
 			log.Printf("fail: rows.Scan, %v\n", err)
 
 			if err := rows.Close(); err != nil { // 500を返して終了するが、その前にrowsのClose処理が必要
