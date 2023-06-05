@@ -83,6 +83,7 @@ func MessageDisplay(w http.ResponseWriter, db *sql.DB, channel string) []model.M
 			return nil
 		}
 		message.User = UserName
+		log.Printf("Name: %s", message.User)
 
 		messages = append(messages, message)
 	}
