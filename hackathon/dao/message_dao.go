@@ -26,9 +26,9 @@ func MessagePost(message model.MessageResForHTTPPOST, w http.ResponseWriter, db 
 		return
 	}
 
-	row := db.QueryRow("SELECT channelID from channel where channelName = ?", message.Channel)
+	row2 := db.QueryRow("SELECT channelID from channel where channelName = ?", message.Channel)
 	var ChannelId string
-	if err := row.Scan(&ChannelId); err != nil {
+	if err := row2.Scan(&ChannelId); err != nil {
 		log.Printf("fail: row.Scan %v\n", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return

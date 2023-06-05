@@ -57,7 +57,7 @@ func messageHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	// ② /userでリクエストされたらnameパラメーターと一致する名前を持つレコードをJSON形式で返す
-	http.HandleFunc("/", messageHandler)
+	http.HandleFunc("/message", messageHandler)
 
 	// ③ Ctrl+CでHTTPサーバー停止時にDBをクローズする
 	closeDBWithSysCall()
