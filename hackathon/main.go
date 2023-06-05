@@ -41,6 +41,13 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	case http.MethodPost:
 		controller.PostUser(w, r, db)
 
+	case http.MethodOptions:
+		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Access-Control-Request-Methods, Access-Control-Request-Headers")
+		w.Header().Set("Access-Control-Max-Age", "86400")
+
 	default:
 		log.Printf("fail: HTTP Method is %s\n", r.Method)
 		w.WriteHeader(http.StatusBadRequest)

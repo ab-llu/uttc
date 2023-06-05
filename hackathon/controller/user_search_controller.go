@@ -11,6 +11,7 @@ import (
 )
 
 func SearchUser(w http.ResponseWriter, r *http.Request, db *sql.DB) {
+	w.Header().Set("Content-Type", "application/json")
 	name := r.FormValue("name")
 	if name == "" {
 		log.Println("fail: name is empty")
@@ -41,6 +42,6 @@ func SearchUser(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Write(bytes)
 }
