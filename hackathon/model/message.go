@@ -36,3 +36,7 @@ type MessageResForEdit struct {
 	MessageId string `json:"id"`
 	Content   string `json:"edited"`
 }
+
+type MessageResForDelete struct {
+	MessageId string `json:"id"`
+}
