@@ -10,6 +10,7 @@ import (
 )
 
 func PostUser(w http.ResponseWriter, r *http.Request, db *sql.DB) {
+	w.Header().Set("Content-Type", "application/json")
 	var user model.UserResForHTTPPOST
 	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
 		log.Printf("fail: json.Decode %v\n", err)
@@ -28,6 +29,6 @@ func PostUser(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Write(result)
 }
