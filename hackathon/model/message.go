@@ -7,12 +7,12 @@ type MessageId struct {
 }
 
 type MessageResForHTTPGet struct {
-	MessageId string    `json:"messageId"`
-	PostedAt  time.Time `json:"posted_at"`
-	User      string    `json:"user"`
-	Content   string    `json:"message"`
-	Edit      bool      `json:"edit"`
-	Channel   string    `json:"channel"`
+	MessageId string `json:"messageId"`
+	PostedAt  string `json:"posted_at"`
+	User      string `json:"user"`
+	Content   string `json:"message"`
+	Edit      bool   `json:"edit"`
+	Channel   string `json:"channel"`
 }
 
 type MessageResForHTTPPOST struct {
