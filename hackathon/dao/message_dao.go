@@ -40,3 +40,13 @@ func MessagePost(message model.MessageResForHTTPPOST, w http.ResponseWriter, db 
 		return
 	}
 }
+
+func MessageDisplay(w http.ResponseWriter, db *sql.DB) *sql.Rows {
+	rows, err := db.Query("SELECT * FROM message")
+	if err != nil {
+		log.Printf("fail: db.Query, %v\n", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return nil
+	}
+	return rows
+}

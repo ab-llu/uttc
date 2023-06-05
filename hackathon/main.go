@@ -36,7 +36,7 @@ func init() {
 func messageHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
-		controller.SearchUser(w, r, db)
+		controller.MessageDisplay(w, db)
 
 	case http.MethodPost:
 		controller.MessagePost(w, r, db)
