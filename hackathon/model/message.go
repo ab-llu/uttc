@@ -31,3 +31,8 @@ type MessageResForHTTPPOST struct {
 	Content   string    `json:"message"`
 	Edit      bool      `json:"edit"`
 }
+
+type MessageResForEdit struct {
+	MessageId string `json:"id"`
+	Content   string `json:"edited"`
+}

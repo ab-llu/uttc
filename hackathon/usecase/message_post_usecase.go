@@ -14,7 +14,7 @@ import (
 func MessagePost(message model.MessageResForHTTPPOST, w http.ResponseWriter, db *sql.DB) {
 	//異常なリクエストを除外
 	if message.Content == "" || len(message.User) > 50 || len(message.Channel) > 50 {
-		log.Println("fail: user information is wrong")
+		log.Println("fail: message information is wrong")
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}

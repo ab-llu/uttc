@@ -41,6 +41,15 @@ func MessagePost(message model.MessageResForHTTPPOST, w http.ResponseWriter, db 
 	}
 }
 
+func MessageEdit(edit model.MessageResForEdit, w http.ResponseWriter, db *sql.DB) {
+	_, err := db.Exec("UPDATE message SET content = ?, edit = TRUE where messageID = ?", edit.Content, edit.MessageId)
+	if err != nil {
+		log.Printf("fail: UPDATE message %v\n", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+}
+
 func MessageDisplay(w http.ResponseWriter, db *sql.DB, channel string) []model.MessageResForDisplay {
 	row := db.QueryRow("SELECT channelID from channel where channelName = ?", channel)
 	var ChannelId string
