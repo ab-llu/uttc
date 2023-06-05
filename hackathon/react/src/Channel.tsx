@@ -1,4 +1,5 @@
 import { useState } from "react";
+import React from "react";
 
 const AddChannel = () => {
     const [isShown, setIsShown] = useState(false);
