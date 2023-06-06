@@ -1,4 +1,5 @@
 import { useState } from "react";
+import React from "react";
 
 const Post = () => {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {

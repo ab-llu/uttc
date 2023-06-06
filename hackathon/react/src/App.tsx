@@ -3,10 +3,12 @@ import './App.css';
 import Post from "./Post"
 import Display from "./Display"
 import AddChannel from "./Channel"
+import LoginForm from "./LoginForm"
 
 function App() {
   return (
     <div className="App">
+      <LoginForm/>
       <header className="App-header">
         <h1>Enter Message</h1>
       </header>
