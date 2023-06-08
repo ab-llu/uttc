@@ -3,7 +3,6 @@ package usecase
 import (
 	"database/sql"
 	"encoding/json"
-	"fmt"
 	"hackathon/dao"
 	"log"
 	"net/http"
@@ -12,7 +11,7 @@ import (
 func UserFetch(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 	userID := r.FormValue("uid")
 
-	var user = dao.UserFetch(w, db, userID)
+	var user, _ = dao.UserFetch(w, db, userID)
 
 	log.Println("user:", user)
 
@@ -27,5 +26,4 @@ func UserFetch(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(bytes)
-	fmt.Fprint(w, "Registration successful!")
 }
