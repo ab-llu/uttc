@@ -5,13 +5,13 @@ type UserId struct {
 }
 
 type UserResForHTTPGet struct {
-	Id   string `json:"id"`
-	Name string `json:"name"`
-	Age  int    `json:"age"`
+	Id    string `json:"id"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
 }
 
 type UserResForHTTPPOST struct {
-	Id   string `json:"id"`
-	Name string `json:"name"`
-	Age  int    `json:"age"`
+	Id    string `json:"uid"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
 }
