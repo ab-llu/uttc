@@ -7,16 +7,15 @@ import (
 	"net/http"
 )
 
-func UserFetch(w http.ResponseWriter, db *sql.DB, userID string) *sql.Rows {
-	log.Printf("daoまで来たよ")
-	rows, err := db.Query("SELECT userID, userNAME, email FROM user WHERE userID = ?", userID)
-	if err != nil {
-		log.Printf("fail: db.Query, %v\n", err)
+func UserFetch(w http.ResponseWriter, db *sql.DB, userID string) (model.UserResForHTTPGet, error) {
+	row := db.QueryRow("SELECT userID, userNAME, email from user where userID = ?", userID)
+	var userData model.UserResForHTTPGet
+	if err := row.Scan(&userData.Id, &userData.Name, &userData.Email); err != nil {
+		log.Printf("fail: row.Scan %v\n", err)
 		w.WriteHeader(http.StatusInternalServerError)
-		return nil
+		return model.UserResForHTTPGet{}, nil
 	}
-	log.Println("rows:", rows)
-	return rows
+	return userData, nil
 }
 
 func UserRegister(user model.UserResForHTTPPOST, w http.ResponseWriter, db *sql.DB) {

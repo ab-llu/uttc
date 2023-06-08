@@ -7,16 +7,6 @@ import (
 	"net/http"
 )
 
-//func SearchName(name string, w http.ResponseWriter, db *sql.DB) *sql.Rows {
-//	rows, err := db.Query("SELECT id, name, age FROM user WHERE name = ?", name)
-//	if err != nil {
-//		log.Printf("fail: db.Query, %v\n", err)
-//		w.WriteHeader(http.StatusInternalServerError)
-//		return nil
-//	}
-//	return rows
-//}
-
 func MessagePost(message model.MessageResForHTTPPOST, w http.ResponseWriter, db *sql.DB) {
 	row := db.QueryRow("SELECT userID from user where userName = ?", message.User)
 	var UserId string

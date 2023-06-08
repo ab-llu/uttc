@@ -8,7 +8,6 @@ import (
 )
 
 func UserRegisterHandler(w http.ResponseWriter, r *http.Request, db *sql.DB) {
-	log.Printf("controllerまできたよ")
 	switch r.Method {
 	case http.MethodGet:
 		w.Header().Set("Content-Type", "application/json")
