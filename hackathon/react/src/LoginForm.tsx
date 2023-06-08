@@ -1,5 +1,5 @@
 import { signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
-import { fireAuth } from "../firebase";
+import { fireAuth } from "./firebase";
 import React from "react";
 
 const LoginForm = () => {
