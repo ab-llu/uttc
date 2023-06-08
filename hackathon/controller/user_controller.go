@@ -13,7 +13,7 @@ func UserRegisterHandler(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 		w.Header().Set("Content-Type", "application/json")
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Access-Control-Request-Methods, Access-Control-Request-Headers, Authorization, sub")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Access-Control-Request-Methods, Access-Control-Request-Headers")
 		w.Header().Set("Access-Control-Max-Age", "86400")
 		usecase.UserFetch(w, r, db)
 
@@ -21,7 +21,7 @@ func UserRegisterHandler(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 		w.Header().Set("Content-Type", "application/json")
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Access-Control-Request-Methods, Access-Control-Request-Headers, Authorization, sub")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Access-Control-Request-Methods, Access-Control-Request-Headers")
 		w.Header().Set("Access-Control-Max-Age", "86400")
 		usecase.UserRegister(w, r, db)
 
@@ -29,7 +29,7 @@ func UserRegisterHandler(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 		w.Header().Set("Content-Type", "application/json")
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Access-Control-Request-Methods, Access-Control-Request-Headers, Authorization, sub")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Access-Control-Request-Methods, Access-Control-Request-Headers")
 		w.Header().Set("Access-Control-Max-Age", "86400")
 
 	default:
