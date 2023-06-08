@@ -8,12 +8,14 @@ import (
 )
 
 func UserFetch(w http.ResponseWriter, db *sql.DB, userID string) *sql.Rows {
+	log.Printf("daoまで来たよ")
 	rows, err := db.Query("SELECT userID, userNAME, email FROM user WHERE userID = ?", userID)
 	if err != nil {
 		log.Printf("fail: db.Query, %v\n", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return nil
 	}
+	log.Println("rows:", rows)
 	return rows
 }
 
