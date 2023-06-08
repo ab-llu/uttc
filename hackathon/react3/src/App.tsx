@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import './App.css';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState } from "react";
@@ -137,21 +138,28 @@ function Random(props: Props) {
 
 function SignOut() {
   const [loginUser, setLoginUser] = useState(fireAuth.currentUser);
-  onAuthStateChanged(fireAuth, (user) => {
-    setLoginUser(user);
-  });
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(fireAuth, (user) => {
+        setLoginUser(user);
+    });
+
+    return () => {
+        unsubscribe();
+    }
+  }, []);
 
   const navigate = useNavigate();
 
-const handleSignOut = async () => {
-  try {
-    await firebase.auth().signOut();
-    console.log('Successfully signed out');
-    navigate("/");
-  } catch (error) {
-    console.log('Fail: sign out', error);
-  }
-};
+  const handleSignOut = async () => {
+    try {
+      await firebase.auth().signOut();
+      console.log('Successfully signed out');
+      navigate("/");
+    } catch (error) {
+      console.log('Fail: sign out', error);
+    }
+  };
 
   return (
     <div>

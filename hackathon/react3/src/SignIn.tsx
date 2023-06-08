@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { fireAuth } from './firebase';
 import { onAuthStateChanged } from "firebase/auth";
@@ -7,11 +8,18 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function SignIn() {
+
   const [loginUser, setLoginUser] = useState(fireAuth.currentUser);
 
-  onAuthStateChanged(fireAuth, (user) => {
-    setLoginUser(user);
-  });
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(fireAuth, (user) => {
+        setLoginUser(user);
+    });
+
+    return () => {
+        unsubscribe();
+    }
+  }, []);
 
   const navigate = useNavigate();
 
@@ -97,7 +105,7 @@ export default function SignIn() {
                     </div>
                     <button type={"submit"}>Submit</button>
                 </form>
-                <a href="/signup">Register</a>
+                <a href="/signup">Sign up</a>
             </div>
         }
     </div>

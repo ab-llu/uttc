@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from "react";
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
@@ -6,11 +7,17 @@ import { fireAuth } from "./firebase";
 import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
-  const [loginUser, setLoginUser] = useState(fireAuth.currentUser);
+    const [loginUser, setLoginUser] = useState(fireAuth.currentUser);
 
-  onAuthStateChanged(fireAuth, (user) => {
-    setLoginUser(user);
-  });
+    useEffect(() => {
+      const unsubscribe = onAuthStateChanged(fireAuth, (user) => {
+          setLoginUser(user);
+      });
+  
+      return () => {
+          unsubscribe();
+      }
+    }, []);
 
   const navigate = useNavigate();
 
