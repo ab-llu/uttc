@@ -33,7 +33,6 @@ export default function SignUp() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "sub": sub,
         },
         body: JSON.stringify(additionalData),
       });

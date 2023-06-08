@@ -7,18 +7,23 @@ import { useNavigate } from 'react-router-dom';
 export default function SignIn() {
   const navigate = useNavigate();
 
-  const fetchData = async (idToken: string) => {
+  type UserInfo = {
+    id: string,
+    name: string,
+    email: string,
+}
+
+  const fetchData = async (uid: string) => {
     try {
-      const response = await fetch(`https://uttc-lnzf2ojmsq-uc.a.run.app/user/register`, {
+      const response = await fetch(`https://uttc-lnzf2ojmsq-uc.a.run.app/user/register?uid=${uid}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${idToken}`,
         },
       });
 
       if (response.ok) {
-        const data = await response.json();
+        const data: UserInfo = await response.json() as UserInfo;
         console.log('Fetched data:', data);
         return data; 
       } else {
@@ -38,10 +43,7 @@ export default function SignIn() {
       const user = userCredential.user;
       console.log('Logged in user:', user);
 
-      // FirebaseからIDトークンを取得
-      const idToken = await user.getIdToken();
-
-      const fetchedData = await fetchData(idToken);
+      const fetchedData = await fetchData(user.uid);
 
       // ホーム画面へ遷移, データをstateに渡す
       navigate('/home', { state: { data: fetchedData } });
