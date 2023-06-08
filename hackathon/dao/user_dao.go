@@ -10,11 +10,13 @@ import (
 func UserFetch(w http.ResponseWriter, db *sql.DB, userID string) (model.UserResForHTTPGet, error) {
 	row := db.QueryRow("SELECT userID, userNAME, email from user where userID = ?", userID)
 	var userData model.UserResForHTTPGet
+	log.Println("userData:", userData)
 	if err := row.Scan(&userData.Id, &userData.Name, &userData.Email); err != nil {
 		log.Printf("fail: row.Scan %v\n", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return model.UserResForHTTPGet{}, nil
 	}
+	log.Println("userData:", userData)
 	return userData, nil
 }
 
