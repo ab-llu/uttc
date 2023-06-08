@@ -20,7 +20,7 @@ func UserFetch(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-
+	log.Print(bytes)
 	w.Write(bytes)
 	fmt.Fprint(w, "Registration successful!")
 }
