@@ -17,12 +17,6 @@ func UserRegister(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 		return
 	}
 
-	////idの割り当て
-	//t := time.Now()
-	//entropy := ulid.Monotonic(rand.New(rand.NewSource(t.UnixNano())), 0)
-	//id := ulid.MustNew(ulid.Timestamp(t), entropy)
-	//user.Id = id.String()
-
 	//異常なリクエストを除外
 	if user.Name == "" || len(user.Name) > 50 {
 		log.Println("fail: user information is wrong")
