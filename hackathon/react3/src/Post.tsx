@@ -1,6 +1,7 @@
 import { useState } from "react";
 import React from "react";
 import { User } from "firebase/auth";
+import { fireAuth } from "./firebase";
 
 type Props = {
   channel: string;
@@ -12,11 +13,6 @@ const Post = (props: Props) => {
 
     if (!message) {
       alert("Please enter message");
-      return;
-    }
-
-    if (user.length > 50) {
-      alert("Please enter a name shorter than 50 characters");
       return;
     }
 
@@ -47,30 +43,28 @@ const Post = (props: Props) => {
     }  
   };
 
-  const [user, setUser] = useState("");
+  const currentUser: User | null = fireAuth.currentUser;
+  const user: string = currentUser ? currentUser.uid: "";
   const channel = props.channel;
   const [message, setMessage] = useState("");
 
   return (
-    <form onSubmit={onSubmit}>
-      <div>
-        <div className="box_l"><label>User: </label></div>
-        <div className="box_i"><input
-          type={"text"}
-          value={user}
-          onChange={(e) => setUser(e.target.value)}
-        ></input></div>
-      </div>
-      <div>
-        <div className="box_l"><label>Message: </label></div>
-        <div className="box_i"><input
-          type={"text"}
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        ></input></div>
-      </div>
-      <button type={"submit"}>Submit</button>
-    </form>
+    <div className="App">
+      <header>
+        <h1>Post Message</h1>
+      </header>
+      <form onSubmit={onSubmit}>
+        <div>
+          <div className="box_l"><label>Message: </label></div>
+          <div className="box_i"><input
+            type={"text"}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          ></input></div>
+        </div>
+        <button type={"submit"}>Submit</button>
+      </form>
+    </div>
   );
 };
 

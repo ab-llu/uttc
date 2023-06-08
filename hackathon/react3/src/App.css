@@ -2,7 +2,7 @@
   text-align: center;
 }
 
-.App-header {
+.App header {
   background-color: #282c34;
   min-height: 20vh;
   display: flex;
@@ -14,7 +14,7 @@
   position: relative;
 }
 
-.App-header h1 {
+.App header h1 {
   position: relative;
   top: -30px;
 }

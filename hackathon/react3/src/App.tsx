@@ -97,10 +97,7 @@ function Top() {
 }
 
 function General(props: Props) {
-  const [loginUser, setLoginUser] = useState(fireAuth.currentUser);
-  onAuthStateChanged(fireAuth, (user) => {
-    setLoginUser(user);
-  });
+  const loginUser = fireAuth.currentUser;
 
   const channelName = props.channel;
   return (
@@ -117,10 +114,7 @@ function General(props: Props) {
 }
 
 function Random(props: Props) {
-  const [loginUser, setLoginUser] = useState(fireAuth.currentUser);
-  onAuthStateChanged(fireAuth, (user) => {
-    setLoginUser(user);
-  });
+  const loginUser = fireAuth.currentUser;
 
   const channelName = props.channel;
   return (

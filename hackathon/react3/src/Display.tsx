@@ -143,7 +143,10 @@ const Display = (props: Props) => {
     }
     
     return (
-        <div>
+        <div className="App">
+            <header>
+                <h1>Message Log</h1>
+            </header>
             <form onSubmit={fetchUsers}>
                 <button type={"submit"}>Show</button>
             </form>
