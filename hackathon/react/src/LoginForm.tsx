@@ -1,48 +1,46 @@
-import { signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
-import { fireAuth } from "./firebase";
-import React from "react";
+import React, { useState } from "react";
+import { useAuth } from "./AuthContext";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
-const LoginForm = () => {
-  /**
-   * googleでログインする
-   */
-  const signInWithGoogle = (): void => {
-    // Google認証プロバイダを利用する
-    const provider = new GoogleAuthProvider();
+export function LoginForm() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const auth = useAuth();
+  const { login } = auth;
 
-    // ログイン用のポップアップを表示
-    signInWithPopup(fireAuth, provider)
-      .then(res => {
-        const user = res.user;
-        alert("ログインユーザー: " + user.displayName);
-      })
-      .catch(err => {
-        const errorMessage = err.message;
-        alert(errorMessage);
-      });
-  };
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  /**
-   * ログアウトする
-   */
-  const signOutWithGoogle = (): void => {
-    signOut(fireAuth).then(() => {
-      alert("ログアウトしました");
-    }).catch(err => {
-      alert(err);
-    });
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      // ログイン成功時の処理
+    } catch (error) {
+      // ログイン失敗時の処理
+    }
   };
 
   return (
     <div>
-      <button onClick={signInWithGoogle}>
-        Googleでログイン
-      </button>
-      <button onClick={signOutWithGoogle}>
-        ログアウト
-      </button>
+      <h2>ログインフォーム</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Email</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Password</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <button type="submit">ログイン</button>
+      </form>
     </div>
   );
-};
-
-export default LoginForm;
+}

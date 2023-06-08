@@ -4,7 +4,6 @@ import { User } from "firebase/auth";
 
 type Props = {
     channel: string;
-    user: User | null;
   };
 
 const Display = (props: Props) => {

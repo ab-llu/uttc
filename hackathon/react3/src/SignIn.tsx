@@ -1,17 +1,25 @@
 import React from 'react';
 import { useState } from 'react';
 import { fireAuth } from './firebase';
+import { onAuthStateChanged } from "firebase/auth";
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
+
 export default function SignIn() {
+  const [loginUser, setLoginUser] = useState(fireAuth.currentUser);
+
+  onAuthStateChanged(fireAuth, (user) => {
+    setLoginUser(user);
+  });
+
   const navigate = useNavigate();
 
   type UserInfo = {
     id: string,
     name: string,
     email: string,
-}
+  }
 
   const fetchData = async (uid: string) => {
     try {
@@ -46,7 +54,7 @@ export default function SignIn() {
       const fetchedData = await fetchData(user.uid);
 
       // ホーム画面へ遷移, データをstateに渡す
-      navigate('/home', { state: { data: fetchedData } });
+      navigate('/');
     } catch (error: any) {
       console.error('Login error:', error);
       if (error.code && error.message) {
@@ -63,25 +71,35 @@ export default function SignIn() {
 
   return (
     <div>
-        <form onSubmit={handleSubmit}>
-            <div>
-                <div className="box_l"><label>Email: </label></div>
-                <div className="box_i"><input
-                    type={"email"}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                ></input></div>
+        {loginUser ? 
+            <div className="App">
+                <h1>You have already signed in</h1>
+                <a href="/">Back to top</a>
             </div>
-            <div>
-                <div className="box_l"><label>Password: </label></div>
-                <div className="box_i"><input
-                    type={"password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                ></input></div>
+        :
+            <div className="App">
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <div className="box_l"><label>Email: </label></div>
+                        <div className="box_i"><input
+                            type={"email"}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        ></input></div>
+                    </div>
+                    <div>
+                        <div className="box_l"><label>Password: </label></div>
+                        <div className="box_i"><input
+                            type={"password"}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        ></input></div>
+                    </div>
+                    <button type={"submit"}>Submit</button>
+                </form>
+                <a href="/signup">Register</a>
             </div>
-            <button type={"submit"}>Submit</button>
-        </form>
+        }
     </div>
   );
 }

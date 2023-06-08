@@ -4,7 +4,6 @@ import { User } from "firebase/auth";
 
 type Props = {
   channel: string;
-  user: User | null;
 };
 
 const Post = (props: Props) => {
@@ -43,7 +42,6 @@ const Post = (props: Props) => {
         throw Error(`Failed to post messages: ${response.status}`);
       }
       console.log("response is...", response);
-      console.log(props.user);
     } catch(err) {
       console.error(err);
     }  
