@@ -7,8 +7,8 @@ import (
 	"net/http"
 )
 
-func SearchName(name string, w http.ResponseWriter, db *sql.DB) *sql.Rows {
-	rows, err := db.Query("SELECT id, name, age FROM user WHERE name = ?", name)
+func UserFetch(w http.ResponseWriter, db *sql.DB, userID string) *sql.Rows {
+	rows, err := db.Query("SELECT userID, userNAME, email FROM user WHERE userID = ?", userID)
 	if err != nil {
 		log.Printf("fail: db.Query, %v\n", err)
 		w.WriteHeader(http.StatusInternalServerError)
@@ -17,8 +17,8 @@ func SearchName(name string, w http.ResponseWriter, db *sql.DB) *sql.Rows {
 	return rows
 }
 
-func RegisterUser(user model.UserResForHTTPPOST, w http.ResponseWriter, db *sql.DB) {
-	if _, err := db.Exec("INSERT INTO user (id, name, age) VALUES(?, ?, ?)", user.Id, user.Name, user.Age); err != nil {
+func UserRegister(user model.UserResForHTTPPOST, w http.ResponseWriter, db *sql.DB) {
+	if _, err := db.Exec("INSERT INTO user (userID, userNAME, email) VALUES(?, ?, ?)", user.Id, user.Name, user.Email); err != nil {
 		log.Printf("fail: db.Exec %v\n", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return

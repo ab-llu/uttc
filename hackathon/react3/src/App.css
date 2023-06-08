@@ -1,0 +1,114 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 20vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  position: relative;
+}
+
+.App-header h1 {
+  position: relative;
+  top: -30px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center
+}
+
+form div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 5px;
+}
+
+form div .box_l {
+  width: 80px;
+  height: 20px;
+  position: relative;
+}
+
+form div .box_i {
+  width: 300px;
+  height: 20px;
+  position: relative;
+}
+
+form div .box_l label {
+  height: 20px;
+  width: 80px;
+  font-weight: bold;
+  text-align: left;
+}
+
+form div .box_i input {
+  height: 20px;
+  width: 300px;
+  position: absolute;
+  top: 0px;
+}
+
+form button {
+  width: 200px;
+  height: 40px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+button {
+  width: 200px;
+  height: 40px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.list .box_h {
+  background-color: rgba(206, 218, 242, 0.62);
+  width: 400px;
+  height: 80px;
+  margin-top: 20px;
+}
+
+.popup-menu-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.popup-menu {
+  position: absolute;
+  z-index: 2;
+
+  width: 30rem;
+  margin-top: 0.5rem;
+  padding: 1rem;
+  background: white;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+
+  transform: scale(0);
+  transform-origin: top left;
+
+  transition: transform 0.2s;
+
+  &.shown {
+    transform: scale(1);
+  }
+}
