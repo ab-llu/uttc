@@ -22,5 +22,6 @@ func MessageDisplay(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 		return
 	}
 
+	w.Header().Set("Content-Type", "application/json")
 	w.Write(bytes)
 }

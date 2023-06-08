@@ -30,6 +30,7 @@ func UserFetch(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 
 	log.Println("bytes:", bytes)
 
+	w.Header().Set("Content-Type", "application/json")
 	w.Write(bytes)
 	fmt.Fprint(w, "Registration successful!")
 }
