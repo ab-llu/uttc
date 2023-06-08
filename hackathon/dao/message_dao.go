@@ -72,6 +72,7 @@ func MessageDisplay(w http.ResponseWriter, db *sql.DB, channel string) []model.M
 
 		var message model.MessageResForDisplay
 		message.MessageId = m.MessageId
+		message.UserId = m.UserId
 		message.PostedAt = m.PostedAt
 		message.Content = m.Content
 		message.Edit = m.Edit
