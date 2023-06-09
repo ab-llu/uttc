@@ -65,6 +65,10 @@ func messageHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func messageFetchHandler(w http.ResponseWriter, r *http.Request) {
+	controller.MessageFetchHandler(w, r, db)
+}
+
 func messageEditHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 
@@ -125,6 +129,7 @@ func userEditHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/message", messageHandler)
+	http.HandleFunc("/message/fetch", messageFetchHandler)
 	http.HandleFunc("/message/edit", messageEditHandler)
 	http.HandleFunc("/message/delete", messageDeleteHandler)
 	http.HandleFunc("/user/register", userRegisterHandler)
