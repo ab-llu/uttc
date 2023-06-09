@@ -29,6 +29,9 @@ func UserRegister(user model.UserResForHTTPPOST, w http.ResponseWriter, db *sql.
 }
 
 func UserEdit(user model.UserResForHTTPPOST, w http.ResponseWriter, db *sql.DB) {
+	log.Println("dao")
+	log.Println(user.Name)
+	log.Println(user.Id)
 	if _, err := db.Exec("UPDATE user SET userNAME = ? where userID = ? ", user.Name, user.Id); err != nil {
 		log.Printf("fail: db.Exec %v\n", err)
 		w.WriteHeader(http.StatusInternalServerError)

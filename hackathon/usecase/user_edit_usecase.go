@@ -25,6 +25,9 @@ func UserEdit(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 	}
 
 	//sqlに挿入
+	log.Println("usecase")
+	log.Println(user.Name)
+	log.Println(user.Id)
 	dao.UserEdit(user, w, db)
 
 	//json型の成功メッセージを送る
