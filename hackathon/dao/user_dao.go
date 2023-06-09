@@ -28,7 +28,7 @@ func UserRegister(user model.UserResForHTTPPOST, w http.ResponseWriter, db *sql.
 	}
 }
 
-func UserEdit(user model.UserResForHTTPPOST, w http.ResponseWriter, db *sql.DB) {
+func UserEdit(user model.UserResForEdit, w http.ResponseWriter, db *sql.DB) {
 	log.Println("dao")
 	log.Println(user.Name)
 	log.Println(user.Id)

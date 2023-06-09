@@ -10,7 +10,7 @@ import (
 )
 
 func UserEdit(w http.ResponseWriter, r *http.Request, db *sql.DB) {
-	var user model.UserResForHTTPPOST
+	var user model.UserResForEdit
 	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
 		log.Printf("fail: json.Decode %v\n", err)
 		w.WriteHeader(http.StatusInternalServerError)

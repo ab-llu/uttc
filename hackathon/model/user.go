@@ -15,3 +15,8 @@ type UserResForHTTPPOST struct {
 	Name  string `json:"name"`
 	Email string `json:"email"`
 }
+
+type UserResForEdit struct {
+	Id   string `json:"currentUserId"`
+	Name string `json:"name"`
+}
