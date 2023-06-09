@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState } from "react";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
+import UserSettings from "./UserSettings";
 import { onAuthStateChanged } from "firebase/auth";
 import "firebase/auth";
 import { fireAuth } from "./firebase";
@@ -46,6 +47,7 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signout" element={<SignOut />} />
+          <Route path="/user" element={<UserSettings />} />
         </Routes>
       </BrowserRouter>
     </div>
@@ -63,7 +65,7 @@ function Top() {
       {loginUser ?
         <div>
           <header>
-            <h1>Welcome! {loginUser.email}</h1>
+            <h1>Welcome!</h1>
           </header>
           <ul>
             <li>
@@ -71,6 +73,9 @@ function Top() {
             </li>
             <li>
               <a href="/random">Random</a>
+            </li>
+            <li>
+              <a href="./user">Account</a>
             </li>
             <li>
               <a href="/signout">Sign Out</a>
@@ -104,7 +109,8 @@ function General(props: Props) {
     <div>
       {loginUser ?
         <div>
-          <h1>{loginUser.email}</h1>
+          <a href="./user">Account</a>
+          <a href="/">Back to Top</a>
           <Post channel={channelName} />
           <Display channel={channelName} />
         </div>
@@ -121,7 +127,8 @@ function Random(props: Props) {
     <div>
       {loginUser ?
         <div>
-          <h1>{loginUser.email}</h1>
+          <a href="./user">Account</a>
+          <a href="/">Back to Top</a>
           <Post channel={channelName} />
           <Display channel={channelName} />
         </div>
@@ -155,6 +162,10 @@ function SignOut() {
     }
   };
 
+  const handleBack = () => {
+    navigate("/")
+  }
+
   return (
     <div>
       {loginUser ?
@@ -162,6 +173,9 @@ function SignOut() {
           <h1>Are you sure to sign out?</h1>
           <button onClick={handleSignOut}>
             Yes
+          </button>
+          <button onClick={handleBack}>
+            No
           </button>
         </div>
       : null}
