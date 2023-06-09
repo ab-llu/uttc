@@ -11,6 +11,7 @@ import "firebase/auth";
 import { fireAuth } from "./firebase";
 import Post from "./MessagePost";
 import Display from "./MessageDisplay";
+import Rand from "./MessageRand";
 import { useNavigate } from 'react-router-dom';
 import firebase from "firebase/compat/app";
 import 'firebase/compat/auth';
@@ -65,7 +66,7 @@ function Top() {
       {loginUser ?
         <div>
           <header>
-            <h1>Welcome!</h1>
+            <h1>ようこそ</h1>
           </header>
           <ul>
             <li>
@@ -75,24 +76,24 @@ function Top() {
               <a href="/random">Random</a>
             </li>
             <li>
-              <a href="./user">Account</a>
+              <a href="./user">アカウント設定</a>
             </li>
             <li>
-              <a href="/signout">Sign Out</a>
+              <a href="/signout">ログアウト</a>
             </li>
           </ul>
         </div>
       :
         <div>
           <header>
-            <h1>Please sign in</h1>
+            <h1>ログインしてください</h1>
           </header>
           <ul>
             <li>
-              <a href="/signin">Sign in</a>
+              <a href="/signin">ログイン</a>
             </li>
             <li>
-              <a href="/signup">Sign up</a>
+              <a href="/signup">ユーザー登録</a>
             </li>
           </ul>
         </div>
@@ -109,8 +110,8 @@ function General(props: Props) {
     <div>
       {loginUser ?
         <div>
-          <a href="./user">Account</a>
-          <a href="/">Back to Top</a>
+          <a href="./user">アカウント設定</a>
+          <a href="/">トップに戻る</a>
           <Post channel={channelName} />
           <Display channel={channelName} />
         </div>
@@ -127,10 +128,12 @@ function Random(props: Props) {
     <div>
       {loginUser ?
         <div>
-          <a href="./user">Account</a>
-          <a href="/">Back to Top</a>
-          <Post channel={channelName} />
-          <Display channel={channelName} />
+          <header className="head">
+            <div><a href="./user">アカウント設定</a></div>
+            <div><a href="/">トップに戻る</a></div>
+          </header>
+          <div className="rand"><Rand channel={channelName} /></div>
+          <div className="post"><Post channel={channelName} /></div>
         </div>
       : null}
     </div>
@@ -170,12 +173,12 @@ function SignOut() {
     <div>
       {loginUser ?
         <div className="App">
-          <h1>Are you sure to sign out?</h1>
+          <h1>ログアウトしますか？</h1>
           <button onClick={handleSignOut}>
-            Yes
+            はい
           </button>
           <button onClick={handleBack}>
-            No
+            いいえ
           </button>
         </div>
       : null}

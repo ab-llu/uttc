@@ -30,7 +30,8 @@ const Post = (props: Props) => {
           body: JSON.stringify({
             user,
             channel,
-            message
+            message,
+            importance
           }),
         }
       );
@@ -38,6 +39,8 @@ const Post = (props: Props) => {
         throw Error(`Failed to post messages: ${response.status}`);
       }
       console.log("response is...", response);
+      setMessage("");
+      setImportance(0);
     } catch(err) {
       console.error(err);
     }  
@@ -47,23 +50,29 @@ const Post = (props: Props) => {
   const user: string = currentUser ? currentUser.uid: "";
   const channel = props.channel;
   const [message, setMessage] = useState("");
+  const [importance, setImportance] = useState(0);
 
   return (
     <div className="App">
-      <header>
-        <h1>Post Message</h1>
-      </header>
-      <form onSubmit={onSubmit}>
-        <div>
-          <div className="box_l"><label>Message: </label></div>
-          <div className="box_i"><input
-            type={"text"}
+      <div className="post-container">
+        <form onSubmit={onSubmit}>
+          <textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-          ></input></div>
-        </div>
-        <button type={"submit"}>Submit</button>
-      </form>
+            placeholder="メッセージを入力"
+          ></textarea>
+          <div>
+            <button type={"button"} className="star" onClick={() => setImportance(1)}>{importance > 0 ? "★":"☆"}</button>
+            <button type={"button"} className="star" onClick={() => setImportance(2)}>{importance > 1 ? "★":"☆"}</button>
+            <button type={"button"} className="star" onClick={() => setImportance(3)}>{importance > 2 ? "★":"☆"}</button>
+            <button 
+              type={"submit"}
+              className="submit"
+              disabled={message=="" || importance==0}
+            >投稿</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

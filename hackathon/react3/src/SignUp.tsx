@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect } from "react";
 import { useState } from "react";
+import { ChangeEvent } from 'react';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
 import { fireAuth } from "./firebase";
@@ -72,12 +73,59 @@ export default function SignUp() {
       }
     } catch (error) {
         console.error("Error signing up:", error);
+        if (error="Firebase: Error (auth/email-already-in-use).") {
+            setErrorMessage("エラー　別のメールアドレスを入力してください")
+        } else {
+            alert(error);
+        };
     }
   };
 
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [name, setName] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value)
+    if (e.target.value == "") {
+        setEmailError("メールアドレスを入力してください")
+    } else if (!isEmailValid(e.target.value)) {
+        setEmailError("メールアドレスの形式が正しくありません")
+    } else {
+        setEmailError("")
+    }
+  }
+
+  const isEmailValid = (email: string) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  };
+
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value)
+    if (e.target.value == "") {
+        setPasswordError("パスワードを入力してください")
+    } else if (e.target.value.length < 6) {
+        setPasswordError("パスワードは６文字以上です")
+    } else {
+        setPasswordError("")
+    }
+  }
+
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value)
+    if (e.target.value == "") {
+        setNameError("表示名を入力してください")
+    } else if (e.target.value.length > 20) {
+        setNameError("表示名は20文字以内で入力してください")
+    } else {
+        setNameError("")
+    }
+  }
 
   return (
     <div>
@@ -87,34 +135,42 @@ export default function SignUp() {
                 <a href="/">Back to top</a>
             </div>
         :
-        <div>
+        <div className="App">
+            <header>
+                <h1>ユーザー登録</h1>
+            </header>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <div className="box_l"><label>Email: </label></div>
+                    <div className="box_l"><label>メールアドレス</label></div>
                     <div className="box_i"><input
                         type={"email"}
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={handleEmailChange}
                     ></input></div>
                 </div>
+                {emailError ?? <div className="error"><h3>{emailError}</h3></div>}
                 <div>
-                    <div className="box_l"><label>Password: </label></div>
+                    <div className="box_l"><label>パスワード</label></div>
                     <div className="box_i"><input
                         type={"password"}
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={handlePasswordChange}
                     ></input></div>
                 </div>
+                {passwordError ?? <div className="error"><h3>{passwordError}</h3></div>}
                 <div>
-                    <div className="box_l"><label>Display Name: </label></div>
+                    <div className="box_l"><label>表示名</label></div>
                     <div className="box_i"><input
                         type={"text"}
                         value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={handleNameChange}
                     ></input></div>
                 </div>
-                <button type={"submit"}>Submit</button>
+                {nameError ?? <div className="error"><h3>{nameError}</h3></div>}
+                <button type={"submit"} disabled={emailError!="" || passwordError!="" || nameError!="" || email=="" || password=="" || name==""}>Submit</button>
             </form>
+            {errorMessage ?? <div className="error"><h3>{errorMessage}</h3></div>}
+            <div><a href="./signin">登録済みのアカウントにログイン</a></div>
         </div>
         }
     </div>
