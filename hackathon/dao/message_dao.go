@@ -136,7 +136,7 @@ func MessageFetch(w http.ResponseWriter, db *sql.DB, channel string) []model.Mes
 	}
 
 	//条件に合うカラムをrandの順でとってくる
-	rows, err := db.Query("SELECT * FROM message where channelId = ? ORDER BY rand", ChannelId)
+	rows, err := db.Query("SELECT * FROM message where channelId = ? ORDER BY rand DESC", ChannelId)
 	if err != nil {
 		log.Printf("fail: db.Query, %v\n", err)
 		w.WriteHeader(http.StatusInternalServerError)
