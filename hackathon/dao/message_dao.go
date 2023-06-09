@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-func MessagePost(message model.MessageResForHTTPPOST, w http.ResponseWriter, db *sql.DB) {
+func MessagePost(message model.MessageResForHTTPPost, w http.ResponseWriter, db *sql.DB) {
 	row := db.QueryRow("SELECT channelID from channel where channelName = ?", message.Channel)
 	var ChannelId string
 	if err := row.Scan(&ChannelId); err != nil {
@@ -18,7 +18,7 @@ func MessagePost(message model.MessageResForHTTPPOST, w http.ResponseWriter, db 
 		return
 	}
 
-	if _, err := db.Exec("INSERT INTO message (messageId, userId, channelId, posted_at, content, edit) VALUES(?, ?, ?, ?, ?, 0)", message.MessageId, message.User, ChannelId, message.PostedAt, message.Content); err != nil {
+	if _, err := db.Exec("INSERT INTO message (messageId, userId, channelId, posted_at, content, edit, importance) VALUES(?, ?, ?, ?, ?, 0, ?)", message.MessageId, message.User, ChannelId, message.PostedAt, message.Content, message.Importance); err != nil {
 		log.Printf("fail: db.Exec %v\n", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return

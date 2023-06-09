@@ -33,36 +33,8 @@ func init() {
 }
 
 // ② /userでリクエストされたらnameパラメーターと一致する名前を持つレコードをJSON形式で返す
-func messageHandler(w http.ResponseWriter, r *http.Request) {
-	switch r.Method {
-	case http.MethodGet:
-		w.Header().Set("Content-Type", "application/json")
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Access-Control-Request-Methods, Access-Control-Request-Headers")
-		w.Header().Set("Access-Control-Max-Age", "86400")
-		controller.MessageDisplay(w, r, db)
-
-	case http.MethodPost:
-		w.Header().Set("Content-Type", "application/json")
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Access-Control-Request-Methods, Access-Control-Request-Headers")
-		w.Header().Set("Access-Control-Max-Age", "86400")
-		controller.MessagePost(w, r, db)
-
-	case http.MethodOptions:
-		w.Header().Set("Content-Type", "application/json")
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Access-Control-Request-Methods, Access-Control-Request-Headers")
-		w.Header().Set("Access-Control-Max-Age", "86400")
-
-	default:
-		log.Printf("fail: HTTP Method is %s\n", r.Method)
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
+func messagePostHandler(w http.ResponseWriter, r *http.Request) {
+	controller.MessagePostHandler(w, r, db)
 }
 
 func messageFetchHandler(w http.ResponseWriter, r *http.Request) {
@@ -128,7 +100,7 @@ func userEditHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/message", messageHandler)
+	http.HandleFunc("/message", messagePostHandler)
 	http.HandleFunc("/message/fetch", messageFetchHandler)
 	http.HandleFunc("/message/edit", messageEditHandler)
 	http.HandleFunc("/message/delete", messageDeleteHandler)

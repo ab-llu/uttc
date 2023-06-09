@@ -54,6 +54,16 @@ type MessageResForHTTPPOST struct {
 	Edit      bool      `json:"edit"`
 }
 
+type MessageResForHTTPPost struct {
+	MessageId  string    `json:"messageId"`
+	User       string    `json:"user"`
+	Channel    string    `json:"channel"`
+	PostedAt   time.Time `json:"posted_at"`
+	Content    string    `json:"message"`
+	Edit       bool      `json:"edit"`
+	Importance int       `json:"importance"`
+}
+
 type MessageResForEdit struct {
 	MessageId string `json:"id"`
 	Content   string `json:"edited"`
