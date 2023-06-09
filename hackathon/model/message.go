@@ -10,6 +10,7 @@ type MessageResForDisplay struct {
 	MessageId string  `json:"messageId"`
 	PostedAt  []uint8 `json:"posted_at"`
 	User      string  `json:"user"`
+	UserId    string  `json:"userID"`
 	Content   string  `json:"message"`
 	Edit      bool    `json:"edit"`
 }

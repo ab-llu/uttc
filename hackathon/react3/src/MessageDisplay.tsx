@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 import { User } from "firebase/auth";
+import { fireAuth } from "./firebase";
 
 type Props = {
     channel: string;
-    user: User | null;
   };
 
 const Display = (props: Props) => {
@@ -12,6 +12,7 @@ const Display = (props: Props) => {
         messageId: string,
         posted_at: string,
         user: string,
+        userID: string,
         message: string,
         edit: boolean;
     }
@@ -19,6 +20,7 @@ const Display = (props: Props) => {
         messageId: string,
         posted_at: string,
         user: string,
+        userID: string,
         message: string,
         edit: boolean
     }[];
@@ -26,6 +28,7 @@ const Display = (props: Props) => {
         messageId: '0',
         posted_at: '2023-06-04 12:00:00',
         user: 'hanako',
+        userID: "",
         message: 'Hello!',
         edit: false
     }]
@@ -40,8 +43,7 @@ const Display = (props: Props) => {
     const [datalist, setDatalist] = useState(defaultData.map((data)=><h1 key={data["messageId"]}>{data["posted_at"]} {data["user"]} {data["message"]} {editIf(data["edit"])}</h1>));
     const channel = props.channel
     
-    const fetchUsers = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+    const fetchUsers = async () => {
         try {
             const response: Response = await fetch(
                 `https://uttc-lnzf2ojmsq-uc.a.run.app/message?channel=${channel}`,
@@ -66,15 +68,38 @@ const Display = (props: Props) => {
         }
     }
 
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        fetchUsers();
+
+        const interval = setInterval(() => {
+            setCount(prevCount => prevCount + 1);
+        }, 10000);
+      
+        return () => {
+            clearInterval(interval);
+        };
+    },[count])
+
+    const currentUser: User | null = fireAuth.currentUser;
+    const currentuserID: string = currentUser ? currentUser.uid: "";
     const [edited, setEdited] = useState("")
     const [id, setId] = useState("") //id of the edited message
 
     function handleClick(data: MessageInfo) {
+        const userID: string = data.userID;
+        console.log("Clicked");
         return function(event: React.MouseEvent<HTMLButtonElement>) {
-            event.preventDefault();
-            setIsShown(true);
-            setEdited(data.message);
-            setId(data.messageId);
+            if (userID === currentuserID) {
+                console.log("user ok");
+                event.preventDefault();
+                setIsShown(true);
+                setEdited(data.message);
+                setId(data.messageId);
+            }else{
+                alert("You can't edit that message.")
+            }
         };
     }
 
@@ -144,10 +169,10 @@ const Display = (props: Props) => {
     }
     
     return (
-        <div>
-            <form onSubmit={fetchUsers}>
-                <button type={"submit"}>Show</button>
-            </form>
+        <div className="App">
+            <header>
+                <h1>Message Log</h1>
+            </header>
             <div className="popup-menu-container">
                 <div className="list">
                     {datalist}
