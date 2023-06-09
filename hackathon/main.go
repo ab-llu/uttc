@@ -119,11 +119,16 @@ func userRegisterHandler(w http.ResponseWriter, r *http.Request) {
 	controller.UserRegisterHandler(w, r, db)
 }
 
+func userEditHandler(w http.ResponseWriter, r *http.Request) {
+	controller.UserEditHandler(w, r, db)
+}
+
 func main() {
 	http.HandleFunc("/message", messageHandler)
 	http.HandleFunc("/message/edit", messageEditHandler)
 	http.HandleFunc("/message/delete", messageDeleteHandler)
 	http.HandleFunc("/user/register", userRegisterHandler)
+	http.HandleFunc("/user/edit", userEditHandler)
 
 	// ③ Ctrl+CでHTTPサーバー停止時にDBをクローズする
 	closeDBWithSysCall()
