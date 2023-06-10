@@ -94,7 +94,7 @@ func MessageDisplay(w http.ResponseWriter, db *sql.DB, channel string) []model.M
 	return messages
 }
 
-func MessageFetch(w http.ResponseWriter, db *sql.DB, channel string) []model.MessageResForFetch {
+func MessageFetch(w http.ResponseWriter, db *sql.DB, channel string, leastStars int, withinDay bool) []model.MessageResForFetch {
 	//channel名からchannelIDを取得
 	row := db.QueryRow("SELECT channelID from channel where channelName = ?", channel)
 	var ChannelId string
@@ -136,7 +136,7 @@ func MessageFetch(w http.ResponseWriter, db *sql.DB, channel string) []model.Mes
 	}
 
 	//条件に合うカラムをrandの順でとってくる
-	rows, err := db.Query("SELECT * FROM message where channelId = ? ORDER BY rand DESC", ChannelId)
+	rows, err := db.Query("SELECT * FROM message where channelId = ? AND importance >= ? ORDER BY rand DESC", ChannelId, leastStars)
 	if err != nil {
 		log.Printf("fail: db.Query, %v\n", err)
 		w.WriteHeader(http.StatusInternalServerError)
