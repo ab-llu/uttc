@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { ChangeEvent } from 'react';
 import { fireAuth } from './firebase';
 import { onAuthStateChanged } from "firebase/auth";
 import { signInWithEmailAndPassword } from 'firebase/auth';
@@ -66,7 +67,11 @@ export default function SignIn() {
     } catch (error: any) {
       console.error('Login error:', error);
       if (error.code && error.message) {
-        alert(error.message);
+        if (error.message="Firebase: Error (auth/wrong-password).") {
+            setErrorMessage("エラー　メールアドレスまたはパスワードが間違っています")
+        } else {
+            alert(error.message);
+        };
       } else {
         console.error('Unexpected error:', error);
         alert('An unexpected error occurred.');
@@ -75,37 +80,73 @@ export default function SignIn() {
   };
 
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value)
+    if (e.target.value == "") {
+        setEmailError("メールアドレスを入力してください")
+    } else if (!isEmailValid(e.target.value)) {
+        setEmailError("メールアドレスの形式が正しくありません")
+    } else {
+        setEmailError("")
+    }
+  }
+
+  const isEmailValid = (email: string) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  };
+
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value)
+    if (e.target.value == "") {
+        setPasswordError("パスワードを入力してください")
+    } else if (e.target.value.length < 6) {
+        setPasswordError("パスワードは６文字以上です")
+    } else {
+        setPasswordError("")
+    }
+  }
 
   return (
     <div>
         {loginUser ? 
             <div className="App">
-                <h1>You have already signed in</h1>
-                <a href="/">Back to top</a>
+                <h1>既にログインしています</h1>
+                <a href="/">トップに戻る</a>
             </div>
         :
             <div className="App">
+                <header>
+                    <h1>ログイン</h1>
+                </header>
                 <form onSubmit={handleSubmit}>
                     <div>
-                        <div className="box_l"><label>Email: </label></div>
+                        <div className="box_l"><label>メールアドレス</label></div>
                         <div className="box_i"><input
                             type={"email"}
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={handleEmailChange}
                         ></input></div>
                     </div>
+                    {emailError ?? <div className="error"><h3>{emailError}</h3></div>}
                     <div>
-                        <div className="box_l"><label>Password: </label></div>
+                        <div className="box_l"><label>パスワード</label></div>
                         <div className="box_i"><input
                             type={"password"}
                             value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={handlePasswordChange}
                         ></input></div>
                     </div>
-                    <button type={"submit"}>Submit</button>
+                    {passwordError ?? <div className="error"><h3>{passwordError}</h3></div>}
+                    <button type={"submit"} disabled={emailError!="" || passwordError!="" || email=="" || password==""}>Submit</button>
                 </form>
-                <a href="/signup">Sign up</a>
+                {errorMessage ?? <div className="error"><h3>{errorMessage}</h3></div>}
+                <div><a href="/signup">新規ユーザー登録</a></div>
             </div>
         }
     </div>

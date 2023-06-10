@@ -55,6 +55,8 @@ const UserSettings = () => {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        console.log(currentUserId);
+        console.log(name);
 
         try {
             const response = await fetch(
@@ -87,35 +89,35 @@ const UserSettings = () => {
             {currentUserId ?
                 <div className="App">
                     <header>
-                        <h1>User Account</h1>
+                        <h1>アカウント設定</h1>
                     </header>
-                    <h3>Name: {name}</h3>
-                    <h3>Email: {email}</h3>
-                    <h2>Change Name</h2>
+                    <h3>表示名： {name}</h3>
+                    <h3>メールアドレス： {email}</h3>
+                    <h2>表示名を変更</h2>
                     <form onSubmit={handleSubmit}>
                     <div>
-                        <div className="box_l"><label>New Name: </label></div>
+                        <div className="box_l"><label>新しい表示名</label></div>
                         <div className="box_i"><input
                             type={"text"}
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                         ></input></div>
                     </div>
-                    <button type={"submit"}>Submit</button>
+                    <button type={"submit"}>変更</button>
                 </form>
-                <a href="/">Back to Top</a>
+                <a href="/">トップに戻る</a>
                 </div>
             :
                 <div className="App">
                     <header>
-                        <h1>Please sign in</h1>
+                        <h1>ログインしてください</h1>
                     </header>
                     <ul>
                         <li>
-                            <a href="/signin">Sign in</a>
+                            <a href="/signin">ログイン</a>
                         </li>
                         <li>
-                            <a href="/signup">Sign up</a>
+                            <a href="/signup">ユーザー登録</a>
                         </li>
                     </ul>
                 </div>

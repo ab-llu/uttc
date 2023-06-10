@@ -1,5 +1,10 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%
 }
 
 .App header {
@@ -59,10 +64,63 @@ form div .box_i input {
 }
 
 form button {
-  width: 200px;
+  width: 100px;
   height: 40px;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.post-container {
+  height: 120px;
+  width: 60%;
+  position: relative;
+  background-color: white;
+}
+
+.post-container div {
+  position: absolute;
+  bottom: -10px;
+  right: 0px;
+  width: 350px;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: right;
+}
+
+.post-container div .submit {
+  width: 200px;
+}
+
+.post-container div .star {
+  width: 50px;
+  font-size: 20px;
+  background-color: transparent;
+  border-width: 0px;
+}
+
+.post-container textarea {
+  position: absolute;
+  top: 0px;
+  width: 99%;
+  height: 70px;
+  vertical-align: top;
+  font-size: 18px;
+}
+
+textarea {
+  height: 70px;
+  width: 200px;
+  vertical-align: top;
+  font-size: 18px;
+}
+
+.textbox {
+  height: 70px;
+  width: 200px;
+  vertical-align: top;
+  font-size: 18px;
 }
 
 button {
@@ -72,24 +130,92 @@ button {
   margin-bottom: 20px;
 }
 
-.list {
+.column {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+.list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
 .list .box_h {
-  background-color: rgba(206, 218, 242, 0.62);
   width: 400px;
   height: 80px;
   margin-top: 20px;
+}
+
+.box_h div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.box_h .iconuser {
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.box_h .icon {
+  height: 50px;
+  width: 80px;
+  background-color: white;
+}
+
+.box_h .user {
+  height: 30px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.box_h .timecontent {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.box_h .timeedit {
+  height: 20px;
+  width: 320px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+}
+
+.box_h .time {
+  height: 20px;
+  width: 200px;
+  font-size: 12px;
+  text-align: left;
+}
+
+.box_h .edit {
+  height: 20px;
+  width: 60px;
+  font-size: 12px;
+  position: absolute;
+  right: 10px;
+}
+
+.box_h .content {
+  height: 60px;
+  text-align: center;
+  font-size: 18px;
 }
 
 .popup-menu-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50vh;
+  height: 600px;
 }
 
 .popup-menu {
@@ -104,7 +230,7 @@ button {
   border-radius: 0.5rem;
 
   transform: scale(0);
-  transform-origin: top left;
+  transform-origin: center;
 
   transition: transform 0.2s;
 
@@ -112,3 +238,90 @@ button {
     transform: scale(1);
   }
 }
+
+.error h3 {
+  color: red;
+}
+
+.head {
+  text-align: center;
+  background-color: #282c34;
+  min-height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.head a {
+  color: aqua;
+  text-decoration: none;
+}
+
+.head .logo {
+  font-size: 36px;
+}
+
+.head .account {
+  position: absolute;
+  font-size: 15px;
+  right: 30px;
+}
+
+.account a {
+  color: white;
+}
+
+.rand {
+  text-align: center;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.post {
+  text-align: center;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+}
+
+.channel {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu {
+  text-align: center;
+  height: 30px;
+  background-color: aquamarine;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.menu .channelName {
+  font-size: 16px;
+}
+
+.menu .buttons {
+  position: absolute;
+  right: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+}
+
+.buttons button {
+  height: 30px;
+  width: 60px;
+  background-color: transparent;
+  border: none;
+  text-align: center;
+  vertical-align: center;
+  font-size: 20px;
+}
+
