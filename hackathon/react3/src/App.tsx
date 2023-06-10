@@ -62,7 +62,7 @@ function Top() {
   });
 
   return (
-    <div className="App">
+    <div>
       {loginUser ?
         <div>
           <header>
@@ -84,18 +84,26 @@ function Top() {
           </ul>
         </div>
       :
-        <div>
+        <div className="Top">
           <header>
-            <h1>ログインしてください</h1>
+            <div><h1>FLASH</h1></div>
           </header>
-          <ul>
-            <li>
-              <a href="/signin">ログイン</a>
-            </li>
-            <li>
-              <a href="/signup">ユーザー登録</a>
-            </li>
-          </ul>
+          <div className="body1">
+            <div>
+              <div className="h1"><h1>躍動 と 興奮</h1></div>
+              <div className="h2"><h2>新時代のメッセージアプリ</h2></div>
+            </div>
+            <div className="red"></div>
+            <div className="yellow"></div>
+            <div className="green"></div>
+          </div>
+          <div className="body2">
+            <div className="start"><h1>今すぐ始めよう</h1></div>
+            <div className="enroll">
+                <div><a href="/signup">ユーザー登録</a></div>
+                <div><a href="/signin">ログイン</a></div>
+            </div>
+          </div>
         </div>
       }
     </div>
