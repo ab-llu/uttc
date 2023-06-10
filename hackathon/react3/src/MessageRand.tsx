@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import React from "react";
 import { User } from "firebase/auth";
 import { fireAuth } from "./firebase";
+import moon from "./img/moon.png"
 
 type Props = {
     channel: string;
@@ -83,7 +84,7 @@ const Rand = (props: Props) => {
             >
                 <div key={data["messageId"]}>
                     <div className="iconuser">
-                        <div className="icon">icon</div>
+                        <img className="icon" src={moon}/>
                         <div className="user">{data["user"]}</div>
                     </div>
                     <div className="timecontent">
@@ -98,10 +99,10 @@ const Rand = (props: Props) => {
         )
     }
     
-    const fetchUsers = async () => {
+    const fetchUsers = async (leastStars: number, withinDay: boolean) => {
         try {
             const response: Response = await fetch(
-                `https://uttc-lnzf2ojmsq-uc.a.run.app/message/fetch?channel=${channel}`,
+                `https://uttc-lnzf2ojmsq-uc.a.run.app/message/fetch?channel=${channel}&leastStars=${leastStars}&withinDay=${withinDay}`,
                 {
                     mode: "cors",
                     method: "GET",
@@ -127,13 +128,43 @@ const Rand = (props: Props) => {
     }
 
     const [count, setCount] = useState(0);
+    const [timer, setTimer] = useState(5000);
+    const [leastStars, setLeastStars] = useState(1);
+    const [withinDay, setWithinDay] = useState(false); //検索する時間の範囲。falseは全て、trueは１日以内
+
+    const handleStop = (event: React.MouseEvent<HTMLButtonElement>) => {
+        if (timer == 5000) {
+            setTimer(1000000000);
+        } else {
+            setTimer(5000);
+            setCount(0);
+        };
+    };
+
+    const handleStar = (event: React.MouseEvent<HTMLButtonElement>) => {
+        switch (leastStars) {
+            case 1:
+                setLeastStars(2);
+                break;
+            case 2:
+                setLeastStars(3);
+                break;
+            case 3:
+                setLeastStars(1);
+                break;
+        }
+    }
+
+    const handleDay = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setWithinDay(!withinDay);
+    }
 
     useEffect(() => {
-        fetchUsers();
+        fetchUsers(leastStars, withinDay);
 
         const interval = setInterval(() => {
             setCount(prevCount => prevCount + 1);
-        }, 10000);
+        }, timer);
       
         return () => {
             clearInterval(interval);
@@ -231,7 +262,16 @@ const Rand = (props: Props) => {
     }
     
     return (
-        <div className="App">
+        <div>
+            <div className="menu">
+                <div className="channelName"><h1>{props.channel}</h1></div>
+                <div className="buttons">
+                    <button onClick={handleStop}>{timer > 100000 ? "⏯️" : "⏸"}</button>
+                    <button onClick={handleStar}>{leastStars == 1 ? "★" : (leastStars == 2 ? "★★" : "★★★")}</button>
+                    <button onClick={handleDay}>{withinDay ? "📅" : "🕑"}</button>
+                </div>
+
+            </div>
             <div className="popup-menu-container">
                 <div className="column">
                     <div className="list">{datalist3}</div>

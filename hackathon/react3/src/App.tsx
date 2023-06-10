@@ -109,11 +109,13 @@ function General(props: Props) {
   return (
     <div>
       {loginUser ?
-        <div>
-          <a href="./user">アカウント設定</a>
-          <a href="/">トップに戻る</a>
-          <Post channel={channelName} />
-          <Display channel={channelName} />
+        <div className="channel">
+          <header className="head">
+            <div className="logo"><a href="/">FLASH</a></div>
+            <div className="account"><a href="./user">アカウント設定</a></div>
+          </header>
+          <div className="rand"><Rand channel={channelName} /></div>
+          <div className="post"><Post channel={channelName} /></div>
         </div>
       : null}
     </div>
@@ -127,10 +129,10 @@ function Random(props: Props) {
   return (
     <div>
       {loginUser ?
-        <div>
+        <div className="channel">
           <header className="head">
-            <div><a href="./user">アカウント設定</a></div>
-            <div><a href="/">トップに戻る</a></div>
+            <div className="logo"><a href="/">FLASH</a></div>
+            <div className="account"><a href="./user">アカウント設定</a></div>
           </header>
           <div className="rand"><Rand channel={channelName} /></div>
           <div className="post"><Post channel={channelName} /></div>

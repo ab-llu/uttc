@@ -246,34 +246,82 @@ button {
 .head {
   text-align: center;
   background-color: #282c34;
-  min-height: 5vh;
+  min-height: 50px;
   display: flex;
-  flex-direction: center;
-  align-items: right;
-  justify-content: right;
+  justify-content: center;
+  align-items: center;
   position: relative;
 }
 
 .head a {
+  color: aqua;
+  text-decoration: none;
+}
+
+.head .logo {
+  font-size: 36px;
+}
+
+.head .account {
+  position: absolute;
+  font-size: 15px;
+  right: 30px;
+}
+
+.account a {
   color: white;
 }
 
 .rand {
   text-align: center;
-  min-height: 500px;
+  height: 600px;
   display: flex;
-  flex-direction: center;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+  flex-direction: column;
 }
 
 .post {
   text-align: center;
   min-height: 100px;
   display: flex;
-  flex-direction: center;
+  flex-direction: column;
+}
+
+.channel {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu {
+  text-align: center;
+  height: 30px;
+  background-color: aquamarine;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
   position: relative;
 }
+
+.menu .channelName {
+  font-size: 16px;
+}
+
+.menu .buttons {
+  position: absolute;
+  right: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+}
+
+.buttons button {
+  height: 30px;
+  width: 60px;
+  background-color: transparent;
+  border: none;
+  text-align: center;
+  vertical-align: center;
+  font-size: 20px;
+}
+
