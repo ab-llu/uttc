@@ -114,41 +114,40 @@ export default function SignIn() {
 
   return (
     <div>
-        {loginUser ? 
-            <div className="App">
-                <h1>既にログインしています</h1>
-                <a href="/">トップに戻る</a>
-            </div>
-        :
-            <div className="App">
+            <div className="Register">
                 <header>
-                    <h1>ログイン</h1>
+                    <h1>おかえりなさい</h1>
                 </header>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <div className="box_l"><label>メールアドレス</label></div>
-                        <div className="box_i"><input
-                            type={"email"}
-                            value={email}
-                            onChange={handleEmailChange}
-                        ></input></div>
+                <body>
+                    <div className="auth">
+                        <div><h1 className="signinmessage">メールアドレスとパスワードを入力してください</h1></div>
+                        <div><form onSubmit={handleSubmit}>
+                            <div className="input-container"><input
+                                className="inputBox"
+                                type={"email"}
+                                value={email}
+                                placeholder="メールアドレス"
+                                onChange={handleEmailChange}
+                            ></input></div>
+                            {emailError ?? <div className="error"><h3>{emailError}</h3></div>}
+                            <div className="input-container"><input
+                                className="inputBox"
+                                type={"password"}
+                                value={password}
+                                placeholder="パスワード"
+                                onChange={handlePasswordChange}
+                            ></input></div>
+                            {passwordError ?? <div className="error"><h3>{passwordError}</h3></div>}
+                            <button type={"submit"} disabled={emailError!="" || passwordError!="" || email=="" || password==""}>Submit</button>
+                            {errorMessage ?? <div className="error"><h3>{errorMessage}</h3></div>}
+                        </form></div>
                     </div>
-                    {emailError ?? <div className="error"><h3>{emailError}</h3></div>}
-                    <div>
-                        <div className="box_l"><label>パスワード</label></div>
-                        <div className="box_i"><input
-                            type={"password"}
-                            value={password}
-                            onChange={handlePasswordChange}
-                        ></input></div>
+                    <div className="signin">
+                            <div><h3>ここに来るのがはじめてですか？</h3></div>
+                            <div><a href="./signup">新規アカウント作成</a></div>
                     </div>
-                    {passwordError ?? <div className="error"><h3>{passwordError}</h3></div>}
-                    <button type={"submit"} disabled={emailError!="" || passwordError!="" || email=="" || password==""}>Submit</button>
-                </form>
-                {errorMessage ?? <div className="error"><h3>{errorMessage}</h3></div>}
-                <div><a href="/signup">新規ユーザー登録</a></div>
+                </body>
             </div>
-        }
     </div>
   );
 }

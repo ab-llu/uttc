@@ -239,10 +239,6 @@ button {
   }
 }
 
-.error h3 {
-  color: red;
-}
-
 .head {
   text-align: center;
   background-color: #282c34;
@@ -325,3 +321,192 @@ button {
   font-size: 20px;
 }
 
+.Register {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%
+}
+
+.Register header {
+  width: 100%;
+  height: 200px;
+  background-color:rgb(38, 8, 44);
+  color: white;
+  font-size: 36px;
+}
+
+.Register body {
+  width: 100%;
+  height: 563px;
+  background-color:rgb(38, 8, 44);
+  color: white;
+  font-size: 18px;
+}
+
+.block {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: top;
+  gap: 100px;
+  width: 100%;
+  height: 100%;
+}
+
+.block .auth {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: top;
+  width: 100%;
+  height: 300px;
+}
+
+.auth div {
+  width: 100%;
+}
+
+.auth button {
+  width: 200px;
+  background-color: lightsteelblue;
+}
+
+.block .signin {
+  height: 30px;
+  width: 100%;
+  display:flex;
+  flex-direction: column;
+}
+
+.step1 {
+  color: lightgreen;
+}
+
+.step2 {
+  color: palevioletred;
+}
+
+.signinmessage {
+  color: lightskyblue;
+}
+
+.input-container {
+  height: 50px;
+}
+
+.inputBox {
+  height: 40px;
+  width: 400px;
+}
+
+.error {
+  color: red;
+}
+
+.Top {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%
+}
+
+.Top header {
+  width: 100%;
+  height: 770px;
+  background-color:rgb(38, 8, 44);
+  color: lightblue;
+  font-size: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Top header h1 {
+  animation: blink 10s infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.Top .body1 {
+  width: 100%;
+  height: 770px;
+  background-color:white;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.body1 .h1 {
+  font-size: 60px;
+}
+
+.body1 .h2 {
+  font-size: 24px;
+}
+
+.red {
+  width: 200px;
+  height: 80px;
+  background-color: red;
+  position: absolute;
+  top: 100px;
+  left: 150px;
+  animation: blink 5s infinite;
+}
+
+.green {
+  width: 200px;
+  height: 80px;
+  background-color: green;
+  position: absolute;
+  top: 200px;
+  right: 30px;
+  animation: blink 4s infinite;
+}
+
+.yellow {
+  width: 200px;
+  height: 80px;
+  background-color: yellow;
+  position: absolute;
+  bottom: 50px;
+  left: 250px;
+  animation: blink 6s infinite;
+}
+
+.Top .body2 {
+  width: 100%;
+  height: 770px;
+  background-color:black;
+  color: white;
+  font-size: 24px;
+}
+
+.body2 .start {
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 36px;
+}
