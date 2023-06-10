@@ -138,21 +138,16 @@ func MessageFetch(w http.ResponseWriter, db *sql.DB, channel string, leastStars 
 	//条件に合うカラムをrandの順でとってくる
 	twentyFourHoursAgo := time.Now().Add(-24 * time.Hour)
 	var rows *sql.Rows
-	var err error
+	var err2 error
 	if withinDay {
-		rows, err = db.Query("SELECT * FROM message where channelId = ? AND importance >= ? AND posted_at > ? ORDER BY rand DESC", ChannelId, leastStars, twentyFourHoursAgo)
-		if err != nil {
-			log.Printf("fail: db.Query, %v\n", err)
-			w.WriteHeader(http.StatusInternalServerError)
-			return nil
-		}
+		rows, err2 = db.Query("SELECT * FROM message where channelId = ? AND importance >= ? AND posted_at > ? ORDER BY rand DESC", ChannelId, leastStars, twentyFourHoursAgo)
 	} else {
-		rows, err = db.Query("SELECT * FROM message where channelId = ? AND importance >= ? ORDER BY rand DESC", ChannelId, leastStars)
-		if err != nil {
-			log.Printf("fail: db.Query, %v\n", err)
-			w.WriteHeader(http.StatusInternalServerError)
-			return nil
-		}
+		rows, err2 = db.Query("SELECT * FROM message where channelId = ? AND importance >= ? ORDER BY rand DESC", ChannelId, leastStars)
+	}
+	if err2 != nil {
+		log.Printf("fail: db.Query, %v\n", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return nil
 	}
 
 	messages := make([]model.MessageResForFetch, 0)
